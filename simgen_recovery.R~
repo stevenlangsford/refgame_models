@@ -1,0 +1,25 @@
+library(tidyverse)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(assertthat)
+library(here)
+library(patchwork)
+
+rm(list = ls()) #sorry JB
+devtest <- FALSE
+set_cmdstan_path("~/cmdstan")#may vary depending on your cmdstan installation
+set.seed(4)
+theme_set(theme_light())
+
+##WORLD SETUP
+object_universe <- list(
+    "color" = list("red", "green", "blue", "yellow"),
+    "shape" = list("circle", "triangle", "square")
+)#Can extend, but speakers will consider all combinations, which gets big fast.
+#Later code assumes this order is preserved in utterances (possibly with '.' fillers)
+
+stim_universe <- cross_df(object_universe)
+utterance_universe <- cross_df(map(object_universe, function(l)c(l, ".")))
+utterance_universe <- utterance_universe[-nrow(utterance_universe), ]##ban silence (controversial?)
+

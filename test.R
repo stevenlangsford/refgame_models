@@ -85,7 +85,7 @@ for (i in 1:length(test_options)){
     my_status_lists[i, ] <- status_info %>% pull(status_code)
     my_status_counts[i, ] <- status_info %>% pull(n_thisstatus)
 }
-
+browser()
     datalist  <- list(
         n_trials = 1,
         n_utterances = nrow(utterance_universe),
